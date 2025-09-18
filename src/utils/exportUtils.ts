@@ -1,6 +1,6 @@
 import { StudyResult, CardSortResult, TreeTestResult, Study } from '../types';
 import * as Papa from 'papaparse';
-import * as XLSX from 'xlsx';
+import * as ExcelJS from 'exceljs';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
@@ -72,39 +72,50 @@ export const generateCSVData = (results: StudyResult[], study: Study, options: E
 };
 
 // Generate Excel workbook
-export const generateExcelWorkbook = (results: StudyResult[], study: Study, options: ExportOptions = {}): XLSX.WorkBook => {
-  const wb = XLSX.utils.book_new();
+export const generateExcelWorkbook = async (results: StudyResult[], study: Study, options: ExportOptions = {}): Promise<ExcelJS.Workbook> => {
+  const wb = new ExcelJS.Workbook();
 
   // Study Overview Sheet
-  const overviewData = [
-    ['Study Name', study.name],
-    ['Study ID', study.id],
-    ['Study Type', study.type],
-    ['Created Date', new Date(study.created).toLocaleDateString()],
-    ['Total Participants', results.length],
-    ['Description', study.description || ''],
-    ['', ''],
-    ['Participants Summary', ''],
-    ['Participant ID', 'Completion Time', 'Duration (ms)', 'Study Type']
-  ];
+  const overviewSheet = wb.addWorksheet('Study Overview');
 
+  // Add overview data
+  overviewSheet.addRow(['Study Name', study.name]);
+  overviewSheet.addRow(['Study ID', study.id]);
+  overviewSheet.addRow(['Study Type', study.type]);
+  overviewSheet.addRow(['Created Date', new Date(study.created).toLocaleDateString()]);
+  overviewSheet.addRow(['Total Participants', results.length]);
+  overviewSheet.addRow(['Description', study.description || '']);
+  overviewSheet.addRow(['']);
+  overviewSheet.addRow(['Participants Summary']);
+
+  // Add header row
+  const headerRow = overviewSheet.addRow(['Participant ID', 'Completion Time', 'Duration (ms)', 'Study Type']);
+  headerRow.font = { bold: true };
+
+  // Add participant data
   results.forEach(result => {
-    overviewData.push([
+    overviewSheet.addRow([
       result.participantId,
       new Date(result.completionTime).toLocaleString(),
-      result.totalDuration.toString(),
+      result.totalDuration,
       result.studyType
     ]);
   });
 
-  const overviewWS = XLSX.utils.aoa_to_sheet(overviewData);
-  XLSX.utils.book_append_sheet(wb, overviewWS, 'Study Overview');
-
   // Detailed Results Sheet
   const detailedData = generateCSVData(results, study, { ...options, includeTimestamps: true, includeDemographics: true });
   if (detailedData.length > 0) {
-    const detailedWS = XLSX.utils.json_to_sheet(detailedData);
-    XLSX.utils.book_append_sheet(wb, detailedWS, 'Detailed Results');
+    const detailedSheet = wb.addWorksheet('Detailed Results');
+
+    // Add headers
+    const headers = Object.keys(detailedData[0]);
+    const headerRow = detailedSheet.addRow(headers);
+    headerRow.font = { bold: true };
+
+    // Add data rows
+    detailedData.forEach(row => {
+      detailedSheet.addRow(headers.map(header => row[header]));
+    });
   }
 
   // Card Sorting specific sheets
@@ -139,8 +150,22 @@ export const generateExcelWorkbook = (results: StudyResult[], study: Study, opti
     });
 
     if (categoryData.length > 0) {
-      const categoryWS = XLSX.utils.json_to_sheet(categoryData);
-      XLSX.utils.book_append_sheet(wb, categoryWS, 'Category Analysis');
+      const categorySheet = wb.addWorksheet('Category Analysis');
+
+      // Add headers
+      const headers = ['Category Name', 'Total Cards', 'Used by Participants', 'Usage Percentage'];
+      const headerRow = categorySheet.addRow(headers);
+      headerRow.font = { bold: true };
+
+      // Add data
+      categoryData.forEach(data => {
+        categorySheet.addRow([
+          data['Category Name'],
+          data['Total Cards'],
+          data['Used by Participants'],
+          data['Usage Percentage']
+        ]);
+      });
     }
   }
 
@@ -176,8 +201,23 @@ export const generateExcelWorkbook = (results: StudyResult[], study: Study, opti
     });
 
     if (taskData.length > 0) {
-      const taskWS = XLSX.utils.json_to_sheet(taskData);
-      XLSX.utils.book_append_sheet(wb, taskWS, 'Tree Test Analysis');
+      const taskSheet = wb.addWorksheet('Tree Test Analysis');
+
+      // Add headers
+      const headers = ['Task', 'Success Rate (%)', 'Direct Success Rate (%)', 'Average Clicks', 'Total Attempts'];
+      const headerRow = taskSheet.addRow(headers);
+      headerRow.font = { bold: true };
+
+      // Add data
+      taskData.forEach(data => {
+        taskSheet.addRow([
+          data['Task'],
+          data['Success Rate (%)'],
+          data['Direct Success Rate (%)'],
+          data['Average Clicks'],
+          data['Total Attempts']
+        ]);
+      });
     }
   }
 
@@ -386,8 +426,8 @@ export const exportResults = async (
       }
 
       case 'excel': {
-        const workbook = generateExcelWorkbook(results, study, options);
-        const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+        const workbook = await generateExcelWorkbook(results, study, options);
+        const excelBuffer = await workbook.xlsx.writeBuffer();
         const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
         downloadBlob(blob, `${baseFilename}.xlsx`);
         break;
