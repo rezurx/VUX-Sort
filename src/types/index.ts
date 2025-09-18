@@ -7,6 +7,19 @@ export type SortType = 'open' | 'closed' | 'hybrid';
 export interface Card {
   id: number;
   text: string;
+  // Rich content support
+  image?: {
+    data: string; // Base64 encoded image data
+    fileName: string;
+    fileSize: number;
+    mimeType: string;
+    dimensions?: { width: number; height: number };
+  };
+  icon?: {
+    name: string; // Lucide icon name
+    color?: string;
+    size?: number;
+  };
   metadata?: {
     complexity?: 'low' | 'medium' | 'high';
     category?: string;
@@ -14,6 +27,9 @@ export interface Card {
     tags?: string[];
     url?: string; // For tree testing
     description?: string;
+    // Rich content metadata
+    hasVisualContent?: boolean;
+    visualContentType?: 'image' | 'icon' | 'both';
   };
 }
 

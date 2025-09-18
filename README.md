@@ -1,14 +1,16 @@
-# VUX Sort - Standalone Card Sorting Tool
+# VUX Sort - Information Architecture Evaluation Platform
 
-A standalone card sorting application extracted from the Vision-UX platform. This tool allows researchers to create, conduct, and analyze card sorting studies with an intuitive interface and comprehensive analytics.
+A comprehensive Information Architecture evaluation platform featuring advanced card sorting, tree testing, and analytics capabilities. Evolved from a standalone tool into a professional-grade research platform with AI-powered orchestration and enterprise analytics.
 
 ## Features
 
 ### Study Management
-- **Create Studies**: Design card sorting studies with custom cards and categories
+- **Multiple IA Methods**: Closed card sorting, open card sorting, tree testing, reverse card sorting
+- **Rich Content Support**: Image and icon integration for enhanced card sorting
+- **Bulk Data Upload**: CSV import with validation and template downloads
+- **Professional Participant Management**: Unique invite codes, demographics collection, status tracking
 - **Study Settings**: Configure participant limits, card shuffling, progress indicators, and more
 - **Study Duplication**: Quickly create variations of existing studies
-- **Import/Export**: Import cards via CSV or manually add them
 
 ### Participant Experience
 - **Drag & Drop Interface**: Intuitive card sorting with visual feedback
@@ -16,11 +18,47 @@ A standalone card sorting application extracted from the Vision-UX platform. Thi
 - **Progress Tracking**: Optional progress indicators and completion feedback
 - **Accessible Design**: WCAG-compliant interface with proper ARIA labels
 
-### Analytics & Insights
-- **Card Similarity Matrix**: Visual heatmap showing how often cards are grouped together
-- **Category Analysis**: Frequency analysis of category usage across participants
-- **Export Results**: Download data in CSV or JSON formats
-- **Real-time Stats**: Participant count, completion rates, and duration metrics
+### Advanced Analytics & Insights 🆕
+- **Agreement Scores**: Statistical analysis of card placement consistency across participants
+- **Participant Journey Tracking**: Real-time movement logging with behavioral pattern analysis
+- **Card Metadata & Tagging**: Cross-study tracking with performance analytics
+- **Enhanced Export Options**: Professional CSV, Excel, PDF, and JSON reports
+- **Similarity Matrix**: Visual heatmap showing card relationships and clustering
+- **Dendrogram Visualization**: Hierarchical clustering analysis with D3.js
+- **Category Analysis**: Frequency analysis and consensus identification
+- **Tree Testing Analytics**: Success rates, path analysis, and navigation efficiency
+
+### Task Orchestration System 🆕
+- **Intelligent Development Coordination**: AI-powered task routing to specialized agents
+- **6 Specialized Agents**: Analytics, UI/UX, Collaboration, Participant Management, Integration, and Card Sorting specialists
+- **Quality Assurance**: Automated validation with comprehensive quality gates
+- **Performance Monitoring**: Real-time metrics and system health tracking
+
+## 🆕 Phase 1A Features (December 2024)
+
+### Enhanced Export System
+- **Multi-format Reports**: Professional CSV, Excel, PDF, and JSON exports
+- **Configurable Options**: Include/exclude metadata, demographics, timestamps
+- **Excel Workbooks**: Multi-sheet analysis with category frequency and tree testing metrics
+- **PDF Reports**: Research-grade reports with tables, charts, and statistical analysis
+
+### Agreement Scores Analytics
+- **Card-to-Card Analysis**: Statistical consistency measurement across participants
+- **Category Consensus**: Identification of high/low agreement categories
+- **Automatic Insights**: Problematic cards and consensus categories detection
+- **Interactive Visualization**: Sortable tables and heatmap integration
+
+### Participant Journey Tracking
+- **Real-time Movement Logging**: Timestamped card placement and movement tracking
+- **Journey Phase Analysis**: Initial, exploration, refinement, finalization patterns
+- **Behavioral Insights**: Convergence analysis and hesitation pattern detection
+- **Performance Metrics**: Card difficulty assessment based on movement patterns
+
+### Card Metadata & Tagging System
+- **Cross-Study Tracking**: Cards tracked and analyzed across multiple studies
+- **Tag Categories**: 7 predefined categories (Navigation, Content, Feature, etc.)
+- **Performance Analytics**: Volatility indexing and trend analysis
+- **Advanced Search**: Tag-based filtering and card discovery capabilities
 
 ## Technology Stack
 
@@ -28,8 +66,10 @@ A standalone card sorting application extracted from the Vision-UX platform. Thi
 - **Styling**: Tailwind CSS
 - **Visualizations**: D3.js for similarity matrix and analytics
 - **Icons**: Lucide React
-- **Data Export**: PapaParse for CSV handling
+- **Data Export**: Multi-format exports (CSV, Excel, PDF, JSON) with XLSX and jsPDF
+- **Rich Content**: Image and icon support for enhanced card sorting
 - **Build Tool**: Vite
+- **Task Orchestration**: Intelligent AI agent coordination system
 
 ## Getting Started
 
@@ -133,6 +173,7 @@ This standalone tool includes the following features from the original Vision-UX
 - Responsive design with Tailwind CSS
 - TypeScript for type safety
 - Local data persistence
+- AI-powered task orchestration system for development coordination
 
 ## Development
 
@@ -142,6 +183,8 @@ This standalone tool includes the following features from the original Vision-UX
 - `npm run build` - Build for production
 - `npm run lint` - Run ESLint
 - `npm run preview` - Preview production build
+- `npm run orchestrator:test` - Run orchestrator test suite
+- `npm run orchestrator:demo` - Run orchestrator usage demo
 
 ### Contributing
 

@@ -3,8 +3,9 @@ import { Download, ArrowLeft, Users, Clock, Target, TreePine } from 'lucide-reac
 import { Study, StudyResult, CardSortResult, TreeTestResult } from '../types';
 import SimilarityMatrix from './SimilarityMatrix';
 import Dendrogram from './Dendrogram';
+import ExportDialog from './ExportDialog';
 import { CategoryAnalysis } from '../analytics';
-import { exportResults, formatDuration } from '../utils';
+import { formatDuration } from '../utils';
 
 interface EnhancedAnalyticsProps {
   study: Study;
@@ -14,6 +15,7 @@ interface EnhancedAnalyticsProps {
 
 const EnhancedAnalytics: React.FC<EnhancedAnalyticsProps> = ({ study, results, onBack }) => {
   const [activeTab, setActiveTab] = useState<'overview' | 'similarity' | 'dendrogram' | 'categories' | 'tree-analytics'>('overview');
+  const [showExportDialog, setShowExportDialog] = useState(false);
 
   // Filter results by type
   const cardSortResults = results.filter(r => 
@@ -45,8 +47,8 @@ const EnhancedAnalytics: React.FC<EnhancedAnalyticsProps> = ({ study, results, o
     , 0) / treeTestResults.reduce((sum, result) => sum + result.treeTestResults.length, 0) * 100
   } : null;
 
-  const handleExport = (format: 'csv' | 'json') => {
-    exportResults(results, study, format);
+  const handleExportClick = () => {
+    setShowExportDialog(true);
   };
 
   const getStudyTypeLabel = (type: string) => {
@@ -117,18 +119,11 @@ const EnhancedAnalytics: React.FC<EnhancedAnalyticsProps> = ({ study, results, o
             </div>
             <div className="flex space-x-2">
               <button
-                onClick={() => handleExport('csv')}
+                onClick={handleExportClick}
                 className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 flex items-center space-x-2"
               >
                 <Download className="w-4 h-4" />
-                <span>Export CSV</span>
-              </button>
-              <button
-                onClick={() => handleExport('json')}
-                className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 flex items-center space-x-2"
-              >
-                <Download className="w-4 h-4" />
-                <span>Export JSON</span>
+                <span>Export Results</span>
               </button>
             </div>
           </div>
@@ -468,6 +463,13 @@ const EnhancedAnalytics: React.FC<EnhancedAnalyticsProps> = ({ study, results, o
           </div>
         )}
       </div>
+
+      <ExportDialog
+        isOpen={showExportDialog}
+        onClose={() => setShowExportDialog(false)}
+        study={study}
+        results={results}
+      />
     </div>
   );
 };
