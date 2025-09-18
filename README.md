@@ -80,7 +80,7 @@ A comprehensive Information Architecture evaluation platform featuring advanced 
 
 1. Navigate to the project directory:
 ```bash
-cd "HFE Work/VUX-Sort"
+cd vux-sort
 ```
 
 2. Install dependencies:
