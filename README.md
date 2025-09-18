@@ -78,8 +78,9 @@ A comprehensive Information Architecture evaluation platform featuring advanced 
 
 ### Installation
 
-1. Navigate to the project directory:
+1. Clone and navigate to the project directory:
 ```bash
+git clone <repository-url>
 cd vux-sort
 ```
 
