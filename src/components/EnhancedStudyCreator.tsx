@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { Plus, Trash2, Save, X, Upload, FolderTree, Shuffle, Target } from 'lucide-react';
-import { Study, Card, Category, StudySettings, StudyType, TreeNode, BulkUploadData } from '../types';
+import { Plus, Trash2, Save, X, Upload, FolderTree, Shuffle, Target, BookOpen, Palette } from 'lucide-react';
+import { Study, Card, Category, StudySettings, StudyType, TreeNode, BulkUploadData, StyleTheme } from '../types';
 import BulkUpload from './BulkUpload';
+import StudyTemplates, { StudyTemplate } from './StudyTemplates';
+import CardStyleCustomizer from './CardStyleCustomizer';
 
 interface EnhancedStudyCreatorProps {
   study?: Study;
@@ -45,10 +47,14 @@ const EnhancedStudyCreator: React.FC<EnhancedStudyCreatorProps> = ({ study, onSa
   const [newCategoryName, setNewCategoryName] = useState('');
   const [newTask, setNewTask] = useState('');
   const [showBulkUpload, setShowBulkUpload] = useState(false);
+  const [showTemplates, setShowTemplates] = useState(false);
+  const [showStyleCustomizer, setShowStyleCustomizer] = useState(false);
 
   const studyTypeOptions = [
     { value: 'card-sorting', label: 'Closed Card Sorting', description: 'Participants sort cards into predefined categories' },
     { value: 'open-card-sorting', label: 'Open Card Sorting', description: 'Participants create their own categories' },
+    { value: 'hybrid-card-sorting', label: 'Hybrid Card Sorting', description: 'Combine open and closed sorting in progressive phases' },
+    { value: 'sequential-card-sorting', label: 'Sequential Card Sorting', description: 'Multi-stage sorting with validation and refinement' },
     { value: 'tree-testing', label: 'Tree Testing', description: 'Test navigation and findability in site structure' },
     { value: 'reverse-card-sorting', label: 'Reverse Card Sorting', description: 'Participants evaluate existing groupings' },
   ];
@@ -121,6 +127,31 @@ const EnhancedStudyCreator: React.FC<EnhancedStudyCreatorProps> = ({ study, onSa
     setShowBulkUpload(false);
   };
 
+  const handleTemplateSelect = (template: StudyTemplate) => {
+    // Apply template to current study
+    setStudyName(template.name);
+    setStudyDescription(template.description);
+    setStudyType(template.studyType);
+    setCards(template.cards);
+    setCategories(template.categories);
+
+    // Merge template settings with current settings
+    setSettings(prev => ({ ...prev, ...template.settings }));
+
+    // Clear tree structure and tasks if not applicable
+    if (template.studyType !== 'tree-testing') {
+      setTreeStructure([]);
+      setTasks([]);
+    }
+
+    setShowTemplates(false);
+  };
+
+  const handleStyleThemeChange = (theme: StyleTheme) => {
+    setSettings(prev => ({ ...prev, styleTheme: theme }));
+    setShowStyleCustomizer(false);
+  };
+
   const handleSave = () => {
     if (!studyName.trim()) {
       alert('Please enter a study name');
@@ -184,9 +215,29 @@ const EnhancedStudyCreator: React.FC<EnhancedStudyCreatorProps> = ({ study, onSa
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <div className="bg-white rounded-lg shadow-sm border">
             <div className="px-6 py-4 border-b border-gray-200">
-              <h2 className="text-xl font-semibold text-gray-900">
-                {study ? 'Edit Study' : 'Create New Study'}
-              </h2>
+              <div className="flex items-center justify-between">
+                <h2 className="text-xl font-semibold text-gray-900">
+                  {study ? 'Edit Study' : 'Create New Study'}
+                </h2>
+                {!study && (
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => setShowTemplates(true)}
+                      className="px-4 py-2 text-blue-600 border border-blue-600 rounded-lg hover:bg-blue-50 transition-colors flex items-center gap-2"
+                    >
+                      <BookOpen className="w-4 h-4" />
+                      Use Template
+                    </button>
+                    <button
+                      onClick={() => setShowStyleCustomizer(true)}
+                      className="px-4 py-2 text-purple-600 border border-purple-600 rounded-lg hover:bg-purple-50 transition-colors flex items-center gap-2"
+                    >
+                      <Palette className="w-4 h-4" />
+                      Customize Style
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
             
             <div className="p-6 space-y-6">
@@ -605,6 +656,37 @@ const EnhancedStudyCreator: React.FC<EnhancedStudyCreatorProps> = ({ study, onSa
           studyType={studyType}
           onDataImported={handleBulkImport}
           onClose={() => setShowBulkUpload(false)}
+        />
+      )}
+
+      {showTemplates && (
+        <StudyTemplates
+          onTemplateSelect={handleTemplateSelect}
+          onClose={() => setShowTemplates(false)}
+        />
+      )}
+
+      {showStyleCustomizer && (
+        <CardStyleCustomizer
+          currentTheme={settings.styleTheme}
+          sampleCards={cards.length > 0 ? cards : [
+            { id: 1, text: 'Sample Card 1' },
+            { id: 2, text: 'Sample Card 2' },
+            { id: 3, text: 'Sample Card 3' },
+            { id: 4, text: 'Sample Card 4' }
+          ]}
+          sampleCategories={categories.length > 0 ? categories : [
+            { id: 1, name: 'Category A', cards: [
+              { id: 1, text: 'Sample Card A1' },
+              { id: 2, text: 'Sample Card A2' }
+            ]},
+            { id: 2, name: 'Category B', cards: [
+              { id: 3, text: 'Sample Card B1' },
+              { id: 4, text: 'Sample Card B2' }
+            ]}
+          ]}
+          onThemeChange={handleStyleThemeChange}
+          onClose={() => setShowStyleCustomizer(false)}
         />
       )}
     </>

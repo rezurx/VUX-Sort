@@ -1,7 +1,7 @@
 {
   "name": "vux-sort",
   "private": true,
-  "version": "1.1.0",
+  "version": "1.2.0",
   "type": "module",
   "description": "Information Architecture Evaluation Platform - Advanced Card Sorting, Tree Testing, and Analytics",
   "scripts": {

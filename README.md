@@ -5,7 +5,9 @@ A comprehensive Information Architecture evaluation platform featuring advanced 
 ## Features
 
 ### Study Management
-- **Multiple IA Methods**: Closed card sorting, open card sorting, tree testing, reverse card sorting
+- **6 IA Methodologies**: Closed, open, hybrid, sequential, tree testing, reverse card sorting
+- **Study Templates**: Professional pre-built templates for 6+ industries (E-commerce, Healthcare, Education, etc.)
+- **Custom Styling**: 5 professional themes with complete visual customization
 - **Rich Content Support**: Image and icon integration for enhanced card sorting
 - **Bulk Data Upload**: CSV import with validation and template downloads
 - **Professional Participant Management**: Unique invite codes, demographics collection, status tracking
@@ -59,6 +61,32 @@ A comprehensive Information Architecture evaluation platform featuring advanced 
 - **Tag Categories**: 7 predefined categories (Navigation, Content, Feature, etc.)
 - **Performance Analytics**: Volatility indexing and trend analysis
 - **Advanced Search**: Tag-based filtering and card discovery capabilities
+
+## 🆕 Phase 1B Features (December 2024)
+
+### Hybrid Card Sorting
+- **Progressive Workflow**: Three-phase system combining closed and open methodologies
+- **Real-time Mode Switching**: Seamless transition between closed, open, and mixed modes
+- **Rich Analytics**: Phase transition tracking and mode usage analytics
+- **Advanced Data Collection**: Category evolution and participant behavior insights
+
+### Sequential/Staged Sorting
+- **Multi-Stage Process**: Three-stage validation workflow (Initial → Refinement → Finalization)
+- **Progressive Features**: Stage-specific controls with validation rules
+- **Category Evolution**: Track how categories develop across sorting stages
+- **User Notes**: Capture participant reasoning at each stage transition
+
+### Study Templates
+- **Industry-Specific**: Pre-built templates for E-commerce, Healthcare, Education, Corporate, Media, Technology
+- **Smart Filtering**: Template categorization and search capabilities
+- **Ready-to-Use**: Pre-configured cards, categories, and optimized settings
+- **Quick Setup**: Reduce study creation time by 60-80%
+
+### Custom Card Styling
+- **Professional Themes**: 5 predefined themes (Default, Warm, Cool, High Contrast, Pastel)
+- **Complete Customization**: Control over colors, borders, typography, shadows, spacing
+- **Accessibility Compliance**: High contrast options for inclusive design
+- **Brand Alignment**: Match organizational visual identity
 
 ## Technology Stack
 

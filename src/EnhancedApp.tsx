@@ -5,6 +5,8 @@ import Dashboard from './components/Dashboard';
 import EnhancedStudyCreator from './components/EnhancedStudyCreator';
 import ParticipantCardSort from './components/ParticipantCardSort';
 import OpenCardSort from './components/OpenCardSort';
+import HybridCardSort from './components/HybridCardSort';
+import SequentialCardSort from './components/SequentialCardSort';
 import TreeTest from './components/TreeTest';
 import ReverseCardSort from './components/ReverseCardSort';
 import ParticipantComplete from './components/ParticipantComplete';
@@ -190,7 +192,13 @@ const EnhancedApp: React.FC = () => {
       
       case 'open-card-sorting':
         return <OpenCardSort {...commonProps} />;
-      
+
+      case 'hybrid-card-sorting':
+        return <HybridCardSort {...commonProps} />;
+
+      case 'sequential-card-sorting':
+        return <SequentialCardSort {...commonProps} />;
+
       case 'tree-testing':
         return <TreeTest {...commonProps} />;
       

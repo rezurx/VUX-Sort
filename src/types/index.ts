@@ -1,7 +1,7 @@
 // Core types for VUX Sort - Information Architecture Evaluation Platform
 
 // Study Types
-export type StudyType = 'card-sorting' | 'open-card-sorting' | 'tree-testing' | 'reverse-card-sorting';
+export type StudyType = 'card-sorting' | 'open-card-sorting' | 'hybrid-card-sorting' | 'sequential-card-sorting' | 'tree-testing' | 'reverse-card-sorting';
 export type SortType = 'open' | 'closed' | 'hybrid';
 
 export interface Card {
@@ -113,7 +113,7 @@ export interface Study {
 export interface StudySettings {
   maxParticipants?: number;
   minParticipants?: number;
-  
+
   // Card Sorting Settings
   sortType?: SortType;
   allowCustomCategories?: boolean;
@@ -123,20 +123,61 @@ export interface StudySettings {
   requireAllCardsPlaced?: boolean;
   maxCustomCategories?: number;
   minCardsPerCategory?: number;
-  
+
   // Tree Testing Settings
   showBreadcrumbs?: boolean;
   allowBacktracking?: boolean;
   showSearchFunctionality?: boolean;
   maxDepth?: number;
   timeLimit?: number; // in seconds
-  
+
   // General Settings
   showProgress?: boolean;
   allowPause?: boolean;
   theme?: 'default' | 'light' | 'dark';
   collectDemographics?: boolean;
   consentRequired?: boolean;
+
+  // Style Customization
+  styleTheme?: StyleTheme;
+}
+
+// Card and Category Styling
+export interface CardStyle {
+  backgroundColor: string;
+  borderColor: string;
+  textColor: string;
+  borderWidth: number;
+  borderRadius: number;
+  shadow: 'none' | 'sm' | 'md' | 'lg';
+  fontSize: 'xs' | 'sm' | 'base' | 'lg';
+  fontWeight: 'normal' | 'medium' | 'semibold' | 'bold';
+  padding: 'sm' | 'md' | 'lg';
+}
+
+export interface CategoryStyle {
+  backgroundColor: string;
+  borderColor: string;
+  textColor: string;
+  headerBackgroundColor: string;
+  headerTextColor: string;
+  borderWidth: number;
+  borderRadius: number;
+  shadow: 'none' | 'sm' | 'md' | 'lg';
+  minHeight: number;
+}
+
+export interface StyleTheme {
+  id: string;
+  name: string;
+  description: string;
+  cardStyle: CardStyle;
+  categoryStyle: CategoryStyle;
+  globalStyles: {
+    fontFamily: string;
+    backgroundColor: string;
+    accentColor: string;
+  };
 }
 
 // Results Types
@@ -154,9 +195,85 @@ export interface BaseResult {
 }
 
 export interface CardSortResult extends BaseResult {
-  studyType: 'card-sorting' | 'open-card-sorting' | 'reverse-card-sorting';
-  cardSortResults: CategoryResult[];
+  studyType: 'card-sorting' | 'open-card-sorting' | 'hybrid-card-sorting' | 'sequential-card-sorting' | 'reverse-card-sorting';
+  cardSortResults: CategoryResult[]; // Keep required for backward compatibility
   customCategories?: CategoryResult[]; // For open card sorting
+  categories?: Category[]; // New unified structure for hybrid/sequential sorting
+  uncategorizedCards?: Card[];
+  hybridData?: HybridSortData; // For hybrid sorting
+  sequentialData?: SequentialSortData; // For sequential sorting
+}
+
+// Hybrid sorting support
+export interface HybridSortData {
+  phases: HybridPhase[];
+  finalMode: 'closed' | 'open' | 'mixed';
+  modesUsed: string[];
+  categoriesCreated: number;
+  categoriesUsed: number;
+  phaseTransitions?: PhaseTransition[];
+}
+
+export interface HybridPhase {
+  id: string;
+  name: string;
+  mode: 'closed' | 'open' | 'mixed';
+  description: string;
+  allowModeSwitch: boolean;
+  completed: boolean;
+  timeSpent: number;
+  startTime?: number;
+  endTime?: number;
+}
+
+export interface PhaseTransition {
+  fromPhase: string;
+  toPhase: string;
+  timestamp: number;
+  cardsChanged: number;
+  categoriesChanged: number;
+}
+
+// Sequential sorting support
+export interface SequentialSortData {
+  stages: SequentialStage[];
+  transitions: StageTransition[];
+  totalStages: number;
+  finalStage: number;
+  categoriesEvolution: CategoryEvolution[];
+}
+
+export interface SequentialStage {
+  id: string;
+  name: string;
+  description: string;
+  objective: string;
+  allowCreateCategories: boolean;
+  allowEditCategories: boolean;
+  allowDeleteCategories: boolean;
+  minCardsPerCategory: number;
+  maxUncategorized: number;
+  completed: boolean;
+  timeSpent: number;
+}
+
+export interface StageTransition {
+  stageId: string;
+  startTime: number;
+  endTime?: number;
+  categoriesAtStart: Category[];
+  categoriesAtEnd?: Category[];
+  unsortedAtStart: Card[];
+  unsortedAtEnd?: Card[];
+  validationPassed: boolean;
+  userNotes?: string;
+}
+
+export interface CategoryEvolution {
+  stageId: string;
+  categoriesCount: number;
+  cardsPerCategory: number[];
+  userNotes?: string;
 }
 
 export interface TreeTestResult extends BaseResult {
