@@ -1,0 +1,20 @@
+{
+  "common": {
+    "loading": "جاري التحميل...",
+    "error": "خطأ",
+    "success": "نجح",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "help": "مساعدة",
+    "settings": "الإعدادات"
+  },
+  "navigation": {
+    "dashboard": "لوحة التحكم",
+    "studies": "الدراسات",
+    "analytics": "التحليلات"
+  },
+  "dashboard": {
+    "title": "لوحة التحكم",
+    "welcome": "مرحباً بك في VUX-Sort"
+  }
+}

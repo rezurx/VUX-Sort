@@ -1,0 +1,360 @@
+/* Mobile Optimization CSS Utilities for VUX-Sort */
+
+/* Safe Area Support */
+:root {
+  --sat: env(safe-area-inset-top);
+  --sab: env(safe-area-inset-bottom);
+  --sal: env(safe-area-inset-left);
+  --sar: env(safe-area-inset-right);
+}
+
+/* Base Mobile Optimizations */
+.mobile-optimized {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Touch-Friendly Button Sizes */
+.touch-target-small {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.touch-target-medium {
+  min-height: 48px;
+  min-width: 48px;
+}
+
+.touch-target-large {
+  min-height: 56px;
+  min-width: 56px;
+}
+
+/* Touch-Friendly Spacing */
+.mobile-spacing-tight {
+  padding: 8px;
+}
+
+.mobile-spacing-normal {
+  padding: 16px;
+}
+
+.mobile-spacing-loose {
+  padding: 24px;
+}
+
+/* Drag and Drop Mobile Support */
+.mobile-draggable {
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+  transform-origin: center;
+  transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+}
+
+.mobile-draggable:active {
+  cursor: grabbing;
+  transform: scale(1.05);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+}
+
+.mobile-draggable.dragging {
+  transform: scale(1.1) rotate(2deg);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  opacity: 0.9;
+}
+
+/* Touch Feedback */
+.touch-feedback {
+  position: relative;
+  overflow: hidden;
+}
+
+.touch-feedback::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s;
+}
+
+.touch-feedback:active::before {
+  width: 200px;
+  height: 200px;
+}
+
+/* Card Sorting Mobile Styles */
+.card-mobile {
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  position: relative;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+}
+
+.card-mobile:active {
+  transform: scale(0.98);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card-mobile.selected {
+  border-color: #3b82f6;
+  background-color: #eff6ff;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.card-mobile.dragging {
+  border-color: #10b981;
+  background-color: #f0fdf4;
+  transform: scale(1.05);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+/* Category Mobile Styles */
+.category-mobile {
+  border: 2px dashed #d1d5db;
+  border-radius: 12px;
+  padding: 16px;
+  background: #f9fafb;
+  min-height: 120px;
+  transition: all 0.3s ease;
+}
+
+.category-mobile.drag-over {
+  border-color: #10b981;
+  background-color: #ecfdf5;
+  border-style: solid;
+  box-shadow: inset 0 0 20px rgba(16, 185, 129, 0.1);
+}
+
+.category-mobile.has-cards {
+  border-style: solid;
+  border-color: #6b7280;
+  background: white;
+}
+
+/* Responsive Grid */
+.mobile-card-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .mobile-card-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mobile-card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Safe Area Classes */
+.pt-safe {
+  padding-top: env(safe-area-inset-top);
+}
+
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.pl-safe {
+  padding-left: env(safe-area-inset-left);
+}
+
+.pr-safe {
+  padding-right: env(safe-area-inset-right);
+}
+
+.mt-safe {
+  margin-top: env(safe-area-inset-top);
+}
+
+.mb-safe {
+  margin-bottom: env(safe-area-inset-bottom);
+}
+
+.ml-safe {
+  margin-left: env(safe-area-inset-left);
+}
+
+.mr-safe {
+  margin-right: env(safe-area-inset-right);
+}
+
+.h-safe-bottom {
+  height: env(safe-area-inset-bottom);
+}
+
+.h-safe-top {
+  height: env(safe-area-inset-top);
+}
+
+/* Mobile Modal Styles */
+.mobile-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 50;
+}
+
+.mobile-modal-content {
+  background: white;
+  border-radius: 16px 16px 0 0;
+  width: 100%;
+  max-height: 80vh;
+  padding: 24px;
+  padding-bottom: calc(24px + env(safe-area-inset-bottom));
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Scroll Optimization */
+.mobile-scroll {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* Loading States */
+.mobile-loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.mobile-loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Touch-Specific Hover States */
+@media (hover: hover) and (pointer: fine) {
+  .touch-hover:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* iOS-Specific Styles */
+.ios-bounce-scroll {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Android-Specific Styles */
+.android-ripple {
+  background-position: center;
+  transition: background 0.3s;
+}
+
+.android-ripple:active {
+  background-color: #e0e0e0;
+  background-size: 100%;
+  transition: background 0s;
+}
+
+/* High DPI Display Support */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .card-mobile,
+  .category-mobile {
+    border-width: 1px;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .mobile-draggable,
+  .card-mobile,
+  .category-mobile,
+  .touch-feedback::before {
+    transition: none;
+  }
+
+  .mobile-modal-content {
+    animation: none;
+  }
+}
+
+/* Focus Visible for Keyboard Navigation */
+.mobile-focus-visible:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Print Styles */
+@media print {
+  .mobile-draggable,
+  .touch-feedback {
+    transform: none !important;
+    box-shadow: none !important;
+    transition: none !important;
+  }
+}
+
+/* Orientation-Specific Styles */
+@media screen and (orientation: landscape) {
+  .landscape-only {
+    display: block;
+  }
+
+  .portrait-only {
+    display: none;
+  }
+}
+
+@media screen and (orientation: portrait) {
+  .landscape-only {
+    display: none;
+  }
+
+  .portrait-only {
+    display: block;
+  }
+}

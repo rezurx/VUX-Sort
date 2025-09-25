@@ -1,0 +1,20 @@
+{
+  "common": {
+    "loading": "加载中...",
+    "error": "错误",
+    "success": "成功",
+    "save": "保存",
+    "cancel": "取消",
+    "help": "帮助",
+    "settings": "设置"
+  },
+  "navigation": {
+    "dashboard": "仪表板",
+    "studies": "研究",
+    "analytics": "分析"
+  },
+  "dashboard": {
+    "title": "仪表板",
+    "welcome": "欢迎使用VUX-Sort"
+  }
+}

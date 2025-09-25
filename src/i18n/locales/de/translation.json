@@ -1,0 +1,20 @@
+{
+  "common": {
+    "loading": "Wird geladen...",
+    "error": "Fehler",
+    "success": "Erfolgreich",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "help": "Hilfe",
+    "settings": "Einstellungen"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "studies": "Studien",
+    "analytics": "Analytik"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Willkommen bei VUX-Sort"
+  }
+}

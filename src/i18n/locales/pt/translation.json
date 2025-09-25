@@ -1,0 +1,20 @@
+{
+  "common": {
+    "loading": "Carregando...",
+    "error": "Erro",
+    "success": "Sucesso",
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "help": "Ajuda",
+    "settings": "Configurações"
+  },
+  "navigation": {
+    "dashboard": "Painel",
+    "studies": "Estudos",
+    "analytics": "Análises"
+  },
+  "dashboard": {
+    "title": "Painel",
+    "welcome": "Bem-vindo ao VUX-Sort"
+  }
+}

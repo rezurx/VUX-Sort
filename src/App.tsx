@@ -7,6 +7,11 @@ import ParticipantCardSort from './components/ParticipantCardSort';
 import ParticipantComplete from './components/ParticipantComplete';
 import Analytics from './components/Analytics';
 
+// Import Phase 2A styles
+import './styles/mobile.css';
+import './styles/accessibility.css';
+import './styles/theme.css';
+
 const VUX_SORT_STUDIES_KEY = 'vux-sort-studies';
 const VUX_SORT_RESULTS_KEY = 'vux-sort-results';
 

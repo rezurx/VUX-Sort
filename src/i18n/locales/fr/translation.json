@@ -1,0 +1,47 @@
+{
+  "common": {
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "warning": "Avertissement",
+    "info": "Information",
+    "save": "Sauvegarder",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "add": "Ajouter",
+    "remove": "Retirer",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "finish": "Terminer",
+    "continue": "Continuer",
+    "close": "Fermer",
+    "open": "Ouvrir",
+    "view": "Voir",
+    "download": "Télécharger",
+    "upload": "Téléverser",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "sort": "Trier",
+    "clear": "Effacer",
+    "reset": "Réinitialiser",
+    "help": "Aide",
+    "settings": "Paramètres",
+    "preferences": "Préférences",
+    "profile": "Profil"
+  },
+  "navigation": {
+    "dashboard": "Tableau de Bord",
+    "studies": "Études",
+    "analytics": "Analytiques",
+    "participants": "Participants",
+    "templates": "Modèles",
+    "reports": "Rapports"
+  },
+  "dashboard": {
+    "title": "Tableau de Bord",
+    "welcome": "Bienvenue dans VUX-Sort",
+    "welcome_message": "Créez et analysez des études de tri de cartes avec des analytiques et insights puissants."
+  }
+}
